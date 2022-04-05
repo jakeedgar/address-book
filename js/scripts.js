@@ -35,16 +35,23 @@ function Contact(firstName, lastName, phoneNumber, emailAddress) {
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
   this.emailAddress = emailAddress;
+  this.address = {};
 };
+
+Contact.prototype.addAddress = function(address) {
+  return this.address = address;
+}
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 };
 
-// Update Phone Number Function, not yet in use
-// Contact.prototype.updatePhoneNumber = function(currentNumber, newNumber) {
-//   return this.phoneNumber = newNumber;
-// }
+// BUSINESS LOGIC FOR ADDRESS 
+function Address(city, state) {
+  this.city = city;
+  this.state = state;
+};
+
 
 // User Interface Logic ---------
 let addressBook = new AddressBook();
@@ -66,6 +73,9 @@ function showContact(contactId) {
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
   $(".email-address").html(contact.emailAddress);
+  console.log(contact.address.city);
+  $(".address").html(contact.address.city + " " + contact.address.state);
+
   let buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
@@ -90,14 +100,28 @@ $(document).ready(function() {
     const inputtedLastName = $("input#new-last-name").val();
     const inputtedPhoneNumber = $("input#new-phone-number").val();
     const inputtedEmailAddress = $("input#new-email-address").val();
-
+    const inputtedCity = $("input#new-city").val();
+    const inputtedState = $("input#new-state").val();
+    
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
     $("input#new-email-address").val("");
+    $("input#new-city").val("");
+    $("input#new-state").val("");
+
 
     let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmailAddress);
+    let address = new Address(inputtedCity, inputtedState);
     addressBook.addContact(newContact);
+    newContact.addAddress(address);
     displayContactDetails(addressBook);
   });
 });
+
+
+
+// Update Phone Number Function, not yet in use
+// Contact.prototype.updatePhoneNumber = function(currentNumber, newNumber) {
+//   return this.phoneNumber = newNumber;
+// }
