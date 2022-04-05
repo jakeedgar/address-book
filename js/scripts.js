@@ -40,7 +40,7 @@ function Contact(firstName, lastName, phoneNumber, emailAddress) {
 
 Contact.prototype.addAddress = function(address) {
   return this.address = address;
-}
+};
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
@@ -51,7 +51,6 @@ function Address(city, state) {
   this.city = city;
   this.state = state;
 };
-
 
 // User Interface Logic ---------
 let addressBook = new AddressBook();
